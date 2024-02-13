@@ -26,18 +26,22 @@ module.exports = () => {
     plugins: [
       new HtmlWebpackPlugin({
         title: 'Progressive Web Application',
-        template: './src/index.html',
+        template: './index.html',
       }),
-      new WebpackPwaManifest({
+      new WebpackPwaManifest({ 
+        inject: true,
         name: 'Progressive Web Application',
         short_name: 'PWA',
         description: 'A simple PWA',
         background_color: '#ffffff',
+        start_url: '/',
+        publicPath: '/',
         crossorigin: 'use-credentials', //can be null, use-credentials or anonymous
         icons: [
           {
-            src: path.resolve('src/assets/icon.png'),
-            sizes: [96, 128, 192, 256, 384, 512] // multiple sizes
+            src: path.resolve('src/images/logo.png'),
+            sizes: [96, 128, 192, 256, 384, 512], // multiple sizes
+            destination: path.join('assests','icons'),
           }
         ]
       }),
@@ -45,10 +49,7 @@ module.exports = () => {
         swSrc: './src-sw.js',
         swDest: 'src-sw.js',
       }),
-      new WorkboxPlugin.GenerateSW({
-        clientsClaim: true,
-        skipWaiting: true,
-      })
+     
       
     ],
 
